@@ -1,0 +1,91 @@
+class OneBHK:
+    room=0
+    kitchen=0
+    hall=0
+
+    def __init__(self,room,hall,kitchen):
+        self.room=room
+        self.kitchen=kitchen
+        self.hall=hall
+
+    def getArea(self):
+        return self.room+self.hall+self.kitchen
+
+    def display(self):
+        print("Room:",self.room)
+        print("Hall:",self.hall)
+        print("Kitchen:",self.kitchen)
+#-- 
+
+o1 = OneBHK(100,140,90)
+o1.display()
+print("Area of OneBHK is:",o1.getArea())
+
+class TwoBHK(OneBHK):
+    secondroom = 0
+    def __init__(self,room,hall,kitchen,secondroom):
+        super().__init__(room,hall,kitchen)
+        self.secondroom = secondroom
+
+    def getArea(self):
+        return super().getArea()+self.secondroom
+
+    def display(self):
+        super().display()
+        print("Second Room:",self.secondroom)
+#-- 
+
+twoB = TwoBHK(110,140,100,120)
+twoB.display()
+print("Area of TwoBHK is:",twoB.getArea())
+
+class ThreeBHK(TwoBHK):
+    thirdroom = 0
+    def __init__(self,room,hall,kitchen,secondroom,thirdroom):
+        super().__init__(room,hall,kitchen,secondroom)
+        self.thirdroom = thirdroom
+
+    def getArea(self):
+        return super().getArea()+self.thirdroom
+
+    def display(self):
+        super().display()
+        print("Third Room:",self.thirdroom)
+        
+threeB = ThreeBHK(110,140,100,120,90)
+threeB.display()
+print("Area of ThreeBHK is:",threeB.getArea())
+
+'''
+Runtime polymorphism:
+Whenever an object is bound with the functionality at run time, this is known as runtime polymorphism. 
+Runtime polymorphism is nothing but method overriding. In Python, method overriding occurs when a derived class provides its own implementation of a method that is already defined in its base class.
+
+at runtime check object's value
+'''
+
+def paintingCharges(flat):
+    area = flat.getArea()
+    charges = area*12
+
+    #Return whether an object is an instance of a class or of a subclass thereof.
+    if isinstance(flat,OneBHK):
+        print("----------OneBHK-----------")
+        charges = charges - (charges*5)/100
+
+    if isinstance(flat,TwoBHK):
+        print("----------TwoBHK-----------")
+        charges = area*12
+        charges = charges - (charges*8)/100  
+
+    if isinstance(flat,ThreeBHK):
+        print("----------ThreeBHK-----------")
+        charges = area*12
+        charges = charges - (charges*10)/100        
+
+    return charges   
+#--- 
+
+print("Painting Charges of OneBHK is in Rs:",paintingCharges(o1)) 
+print("Painting Charges of OneBHK is in Rs:",paintingCharges(twoB))
+print("Painting Charges of OneBHK is in Rs:",paintingCharges(threeB)) 
